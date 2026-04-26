@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_BASE_URL = "https://pharaohs-school-api.onrender.com";
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:";
+    const API_BASE_URL = isLocalhost ? "http://127.0.0.1:8000" : "https://pharaohs-school-api.onrender.com";
     const pathname = window.location.pathname;
     const pageName = pathname.split("/").pop() || "";
 
