@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta, timezone
 from typing import Generator
 
@@ -11,7 +12,7 @@ from sqlalchemy.orm import Session
 from database import SessionLocal
 from models import User
 
-SECRET_KEY = "change-this-secret-in-production"
+SECRET_KEY = os.getenv("SECRET_KEY", "local-dev-secret-change-in-prod")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 

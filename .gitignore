@@ -1,5 +1,23 @@
+# Python
 backend/venv/
 backend/__pycache__/
+backend/routers/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Database (Render creates it fresh from seed data)
 backend/*.db
+
+# Environment secrets
 .env
+.env.*
+
+# OS
 .DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp

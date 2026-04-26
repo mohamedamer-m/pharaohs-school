@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -12,9 +14,14 @@ from routers.teacher import router as teacher_router
 
 app = FastAPI(title="Pharaohs School API", version="1.0.0")
 
+# CORS: allow all origins so the Netlify frontend can reach this API.
+# To lock it down later, set ALLOWED_ORIGINS env var to your Netlify URL.
+_raw_origins = os.getenv("ALLOWED_ORIGINS", "*")
+_origins = [o.strip() for o in _raw_origins.split(",")] if _raw_origins != "*" else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_origins,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -83,3 +90,8 @@ app.include_router(auth_router)
 app.include_router(admin_router)
 app.include_router(teacher_router)
 app.include_router(student_router)
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
